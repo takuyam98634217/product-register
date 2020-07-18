@@ -26,3 +26,6 @@ services:
     environment:
       - 'POSTGRES_USER=postgres'
       - 'POSTGRES_PASSWORD=postgres'
+      # localhost上でpostgresqlを動作させる場合は不要だが、
+      # TravisCIで動作させるので以下の設定が必要
+      - 'POSTGRES_HOST_AUTH_METHOD=trust'

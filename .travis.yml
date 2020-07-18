@@ -1,0 +1,17 @@
+sudo: required
+
+# dockerを使う
+services: docker
+
+# "Install"フェーズ前に何を実行するか
+before_install:
+  - docker-compose up --build -d
+
+
+script:
+  # RAILS_ENV : railsのどの環境を使うか。（test環境を使う)
+  # テスト用のDBを作成するイメージ
+  - docker-compose exec --env 'RAILS_ENV=test' web rails db:create
+  - docker-compose exec --env 'RAILS_ENV=test' web rails db:migrate
+  # テスト実施
+  - docker-compose exec --env 'RAILS_ENV=test' web rails test
